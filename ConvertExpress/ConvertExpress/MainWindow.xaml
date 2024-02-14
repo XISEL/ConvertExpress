@@ -1,0 +1,120 @@
+﻿<Window x:Class="ConvertExpress.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConvertExpress"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="554" Width="840"
+        ResizeMode="NoResize"
+        Background="Transparent">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="LightweightButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxTest2" TargetType="{x:Type ComboBox}">
+     <Setter Property="HorizontalContentAlignment" Value="Center"/>
+     <Setter Property="VerticalContentAlignment" Value="Center"/>
+     <Setter Property="Template">
+         <Setter.Value>
+             <ControlTemplate TargetType="ComboBox">
+                 <Grid>
+                     <ToggleButton Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                         <ToggleButton.Template>
+                             <ControlTemplate>
+                                 <Grid>
+                                     <Grid.ColumnDefinitions>
+                                         <ColumnDefinition Width="8*" />
+                                         <ColumnDefinition Width="*" />
+                                     </Grid.ColumnDefinitions>
+                                     <Border x:Name="Border"  Grid.ColumnSpan="2" CornerRadius="7" Background="White" BorderBrush="LightGray" BorderThickness="1" />
+                                     <Border Grid.Column="0" CornerRadius="5,0,0,5"  Margin="1"  Background="White"  BorderBrush="LightGray" BorderThickness="0,0,1,0" />
+                                     <Path x:Name="Arrow" Grid.Column="1"  Fill="White" Stroke="Black" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Data="M0,1 L3,7 L6,1"/>
+                                 </Grid>
+                             </ControlTemplate>
+                         </ToggleButton.Template>
+                     </ToggleButton>
+                     <ContentPresenter  Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3"  />
+                     <TextBox x:Name="PART_EditableTextBox" TextWrapping="Wrap" MaxLength="16" FontFamily="Work Sans" FontWeight="Normal" Foreground="Black"  Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                     <Popup Name="Popup" Placement="Bottom"  IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                         <Grid  Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                             <Border x:Name="DropDownBorder" Background="WhiteSmoke" CornerRadius="3" />
+                             <ScrollViewer SnapsToDevicePixels="True">
+                                 <StackPanel IsItemsHost="True" />
+                             </ScrollViewer>
+                         </Grid>
+                     </Popup>
+                 </Grid>
+             </ControlTemplate>
+         </Setter.Value>
+     </Setter>
+     <Style.Triggers>
+     </Style.Triggers>
+ </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="41"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="85"/>
+                <RowDefinition Height="132"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="2" FontFamily="Work Sans" FontWeight="Bold" Margin="49,0,0,0" Foreground="Black" Text="ConvertExpress" FontSize="36px" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Row="2" FontFamily="Work Sans" FontWeight="Normal" Margin="49,38,0,0" Foreground="Black" Text="Лучший конвертер валют" HorizontalAlignment="Left" FontSize="16px"/>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="49"/>
+                    <ColumnDefinition Width="334"/>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="334"/>
+                    <ColumnDefinition Width="49"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="1" x:Name="inputPriceTo" PreviewTextInput="TextBox_PreviewTextInput" Padding="15,25,0,0" Background="Transparent" Foreground="Black" BorderThickness="2" BorderBrush="LightGray" FontFamily="Work Sans" FontWeight="Bold" FontSize="48" TextAlignment="Left">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="7" />
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <TextBlock Grid.Column="1" x:Name="PriceShowOne" FontFamily="Work Sans" Opacity="0.7" FontWeight="Normal" Margin="23,100,0,0" Foreground="Black" Text="ConvertExpress" FontSize="15" HorizontalAlignment="Left"/>
+                <Border Grid.Column="3" CornerRadius="7" BorderThickness="2" BorderBrush="LightGray">
+                    <TextBlock  x:Name="exchangeRateTextBlock" FontFamily="Work Sans" FontWeight="Bold" Background="Transparent" Foreground="Black" Margin="15,25,0,0" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Border>
+                <TextBlock Grid.Column="3" x:Name="PriceShowSecond" FontFamily="Work Sans" FontWeight="Normal" Opacity="0.7" Margin="23,100,0,0" Foreground="Black" Text="ConvertExpress" FontSize="15" HorizontalAlignment="Left"/>
+                <Button Grid.Column="2" Height="36" Width="36" Style="{StaticResource LightweightButton}" >
+                    <Image Source="/Image/swaper.png"/>
+                </Button>
+            </Grid>
+            
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="49"/>
+                    <ColumnDefinition Width="334"/>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="334"/>
+                    <ColumnDefinition Width="49"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <TextBlock Grid.Row="5" FontFamily="Work Sans" FontWeight="Normal" Margin="0,20,44,0"  Foreground="Black" FontSize="14" Opacity="0.7" TextAlignment="Right" x:Name="TimeTextbox"/>
+        </Grid>
+    </Border>
+</Window>
