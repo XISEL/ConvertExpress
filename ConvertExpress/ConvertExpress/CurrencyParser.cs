@@ -5,7 +5,7 @@ using HtmlAgilityPack; // Подключение библиотеки для п�
 
 namespace ConvertExpress
 {
-    public static class CurrencyParcer
+    public static class CurrencyParser
     {
         // Метод для парсинга данных о валютах
         //2.0
