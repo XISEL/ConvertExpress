@@ -84,7 +84,7 @@ namespace CurrencyParser
         private void LoadCurrencyData()
         {
             // Получение данных о валютах с использованием парсера
-            CurrencyItems = CurrencyParser1.ParseCurrencies();
+            CurrencyItems = ConvertExpress1.ParseCurrencies();
 
             // Добавление рубля в список валют
             CurrencyItems.Add(new CurrencyItem { Code = "RUB", Name = "Рубль", Rate = "1" });
